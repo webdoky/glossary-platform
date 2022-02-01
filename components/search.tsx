@@ -27,7 +27,7 @@ export default function Search({ searchData }) {
   useEffect(() => {
     setSearchIndex(
       new Fuse(searchData, {
-        keys: ['term', 'translation', 'path'],
+        keys: ['term', 'translations', 'path'],
         threshold: 0.25,
       })
     );

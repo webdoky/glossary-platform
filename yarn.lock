@@ -1258,7 +1258,7 @@ globby@^11.0.4:
 
 "glossary-content@https://github.com/webdoky/glossary-content.git#main":
   version "0.0.0"
-  resolved "https://github.com/webdoky/glossary-content.git#e3fe09198c113e04eddfb8eb58dea03b843ba2ed"
+  resolved "https://github.com/webdoky/glossary-content.git#605b4b9068c776e85a9119349e34da3a3db98e33"
 
 has-bigints@^1.0.1:
   version "1.0.1"
