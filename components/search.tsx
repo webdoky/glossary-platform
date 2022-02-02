@@ -15,14 +15,18 @@ export function prepareSearchData(pages: TranslationItem[]) {
   }));
 }
 
+interface FuseInterface {
+  search: (_query) => unknown[];
+}
+
 export default function Search({ searchData }) {
   const router = useRouter();
   const [query, setQuery] = useState('');
   const [focusIndex, setFocusIndex] = useState(-1);
   const [focused, setFocused] = useState(false);
   const [results, setResults] = useState([]);
-  const [searchIndex, setSearchIndex] = useState<unknown>();
-  const searchInput = useRef();
+  const [searchIndex, setSearchIndex] = useState<FuseInterface | undefined>();
+  const searchInput = useRef<HTMLInputElement>();
 
   useEffect(() => {
     setSearchIndex(
