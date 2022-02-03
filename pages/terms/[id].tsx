@@ -42,7 +42,13 @@ export async function getStaticProps({ params }) {
   };
 }
 
-export default function Post({ term, translations, navSections, searchData }) {
+export default function Post({
+  term,
+  translations,
+  content = '',
+  navSections,
+  searchData,
+}) {
   return (
     <main>
       <Head>
@@ -57,10 +63,18 @@ export default function Post({ term, translations, navSections, searchData }) {
       >
         <h1>{term}</h1>
 
+        {content && (
+          <div
+            className="md-content"
+            dangerouslySetInnerHTML={{ __html: content }}
+          ></div>
+        )}
+
+        <hr className="mb-6" />
         {translations.map((translation, index) => (
           <p key={`${index}.${translation.source}`}>
             <strong>{translation.source}</strong> —{' '}
-            <span>{translation.text}</span>
+            <span className="capitalize">{translation.text}</span>
           </p>
         ))}
       </Layout>

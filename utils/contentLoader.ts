@@ -1,5 +1,15 @@
 import { promises as fs } from 'fs';
 import path from 'path';
+import matter from 'gray-matter';
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import rehypeStringify from 'rehype-stringify';
+
+const mdProcessor = unified()
+  .use(remarkParse)
+  .use(remarkRehype)
+  .use(rehypeStringify);
 
 let instanceSingleton;
 
@@ -9,10 +19,11 @@ export interface TranslationItem {
     source: string;
     text: string;
   }[];
+  content?: string;
 }
 
 export default class ContentLoader {
-  registry = new Map();
+  registry = new Map<string, TranslationItem>();
 
   async init() {
     const contentDirectory = path.join(
@@ -28,11 +39,25 @@ export default class ContentLoader {
       );
       const content = await fs.readFile(filepath, { encoding: 'utf8' });
 
-      try {
-        const data = JSON.parse(content);
-        this.registry.set(data.term, data);
-      } catch (error) {
-        console.log('Error in ', filename, error);
+      if (filepath.endsWith('.md')) {
+        try {
+          const { data, content: mdContent } = matter(content);
+          const htmlContent = await mdProcessor.process(mdContent);
+          this.registry.set(data.term, {
+            term: data.term,
+            translations: data.referenceTranslations,
+            content: String(htmlContent),
+          });
+        } catch (error) {
+          console.log('Error in ', filename, error);
+        }
+      } else {
+        try {
+          const data = JSON.parse(content);
+          this.registry.set(data.term, data);
+        } catch (error) {
+          console.log('Error in ', filename, error);
+        }
       }
     });
 
