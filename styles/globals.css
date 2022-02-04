@@ -114,4 +114,11 @@ blockquote {
   dl dd {
     margin: 0 1.5em;
   }
+
+  blockquote {
+    @apply border-l-4 border-ui-border py-2 pl-4;
+    p:last-child {
+      @apply mb-0;
+    }
+  }
 }

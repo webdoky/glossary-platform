@@ -1365,7 +1365,7 @@ globby@^11.0.4:
 
 "glossary-content@https://github.com/webdoky/glossary-content.git#main":
   version "0.0.0"
-  resolved "https://github.com/webdoky/glossary-content.git#24f462dbff72d8aa73f173d1c88699d4960c3cd1"
+  resolved "https://github.com/webdoky/glossary-content.git#d58d6932ecf3490c1f932f089838bfc11a602996"
 
 gray-matter@^4.0.3:
   version "4.0.3"
